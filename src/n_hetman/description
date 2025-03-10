@@ -1,0 +1,35 @@
+Problem n-hetmanów
+
+Struktura danych:
+- tablica jedno wymiarowa  -> int[] board -> do przechowywania kolumn
+- rozmiar planszy do gry   -> int N
+
+Klasa N_Hetman:
+    Jest to klasa zawierająca logikę.
+- Metody:
+    - beatings:
+        metoda sprawdzająca czy nowy hetman nie jest w kolizji (strefie ataku)
+        innego hetmana (pętla iteruje od 0 do row-1)
+        sprawdzenie warunków kolizji:
+            - x1=x2, y1=y2, |x2-x1| = |y2-y1|
+            w naszym przypadku:
+                x-> wiersz -> index tablicy board
+                y-> kolumna -> wartość w indeksie board[i]
+    int prev_col = board[prev_row] -> pobiera kolumnę w której jest hetman w wierszu
+    prev_col == col -> nowy hetman jest w tej samej kolumnie
+    Math.abs(prev_row - row) == Math.abs(prev_col - col) -> sprawdzenie przekątnej
+
+    - solve:
+        metoda rekurencyjna umieszczająca hetmana na planszy
+            if (row == N) -> sprawdzenie czy umieszczono wszystkich hetmanów
+            for -> iterujemy przez wszystkie kolumny próbując umiesić hetmana w kolumnie
+            if (beatings(row,col)) -> sprawdzenie czy umieszczony hetman jest bezpieczny.
+                Jeżeli tak przypisujemy kolumnę do board[row] i wywołujemy metode solve(row+1),
+                próbując umieścić hetmana w kolejnym wierszu
+
+Klasa Board:
+- wyświetlenie w przyjazny sposób informacji o współrzędnych hetmanów
+    np. -> board = [(0,6), (1,3), (2,0), (3,4), (4,1), (5,5), (6,2)]
+
+Klasa Main:
+- klasa uruchomieniowa
